@@ -44,17 +44,15 @@ class FragmentList : Fragment() {
         if (view is RecyclerView) {
             with(view)
             {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context,columnCount)
-                }
+                layoutManager = when { columnCount <= 1 -> LinearLayoutManager(context)
+                                        else -> GridLayoutManager(context,columnCount) }
+
                 adapter = MyItemRecyclerViewAdapter(Show.showList,listener)
             }
         }
 
         return view
     }
-
 
 
     companion object {

@@ -5,11 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.RatingBar
+import android.widget.TextView
+import com.example.p2_master_detail_las.extensions.toBitmap
+import com.example.p2_master_detail_las.model.Show
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+
+private const val ARG_SHOW = "ARG_SHOW"
 
 /**
  * A simple [Fragment] subclass.
@@ -17,15 +20,15 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class FragmentDetail : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private var showID: Int? = null
+    private var show: Show? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            showID = it.getInt(ARG_SHOW,-1)
+            show = Show.getShowById(showID)
         }
     }
 
@@ -37,22 +40,26 @@ class FragmentDetail : Fragment() {
         return inflater.inflate(R.layout.fragment_detail, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        view.findViewById<TextView>(R.id.tvTitle).text = show?.name
+        view.findViewById<TextView>(R.id.tvSummary).text = show?.summary
+        view.findViewById<TextView>(R.id.tvGenre).text = show?.genres.toString()
+        view.findViewById<TextView>(R.id.tvLanguage).text = show?.language
+        view.findViewById<TextView>(R.id.tvPremiered).text = show?.premiered
+        view.findViewById<TextView>(R.id.tvURL).text = show?.officialSite
+
+        view.findViewById<ImageView>(R.id.ivShow).setImageBitmap(show?.image?.toBitmap(view.context))
+        view.findViewById<RatingBar>(R.id.rbRating).rating = show?.rating ?: 0f
+    }
+
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FragmentDetail.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+       @JvmStatic
+        fun newInstance(showId: Int) =
             FragmentDetail().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putInt(ARG_SHOW, showId)
                 }
             }
     }

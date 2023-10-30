@@ -33,7 +33,7 @@ class MyItemRecyclerViewAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val show = showList[position]
-        holder.tvShowname.text = show.name
+        holder.tvShowName.text = show.name
         holder.tvLanguage.text = show.language
         holder.rbRating.rating = show.rating
 
@@ -53,14 +53,14 @@ class MyItemRecyclerViewAdapter(
     //This inner class contains all view of each item on list_item.xml
     inner class ViewHolder(binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
-        val tvShowname: TextView = binding.tvShowName
+        val tvShowName: TextView = binding.tvShowName
         val tvLanguage: TextView = binding.tvLanguage
         val rbRating: RatingBar = binding.rbRating
         val ivShow: ImageView = binding.ivShow
 
 
         override fun toString(): String {
-            return super.toString() + " ${tvShowname.text} is in ${tvLanguage.text} and has ${rbRating.rating} stars"
+            return super.toString() + " ${tvShowName.text} is in ${tvLanguage.text} and has ${rbRating.rating} stars"
         }
 
         override fun onClick(v: View?) {

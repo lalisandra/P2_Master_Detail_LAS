@@ -18,6 +18,8 @@ class MainActivity : AppCompatActivity(), OnItemClick {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
+
+        loadRecyclerView()
     }
 
     override fun OnItemClick(show: Show) {

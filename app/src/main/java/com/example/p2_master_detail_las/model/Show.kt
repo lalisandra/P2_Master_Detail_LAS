@@ -20,6 +20,11 @@ data class Show(
     var image:String,
     var summary:String
 ){
+
+    override fun toString(): String {
+        return "${this.name}  ${this.language}"
+    }
+
     companion object{
         val showList:MutableList<Show> = mutableListOf()
 
@@ -37,7 +42,7 @@ data class Show(
             showList.addAll(shows)
         }
 
-        fun getShowById(id:Int): Show?{
+        fun getShowById(id:Int?): Show?{
             val series = showList.filter {
                 it.id == id
             }
